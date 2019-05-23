@@ -7,4 +7,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'firebootcamp-crm';
+
+  titleChanged(event) {
+    console.log('title was changed', event);
+    this.title = event.target.value;
+  }
+
 }
