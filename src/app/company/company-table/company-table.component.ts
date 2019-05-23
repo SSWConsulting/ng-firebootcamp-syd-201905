@@ -12,7 +12,8 @@ export class CompanyTableComponent implements OnInit {
   companies: Company[];
 
   @Output()
-  deleteClicked: EventEmitter<Company> = new EventEmitter();
+  deleteClicked: EventEmitter<Company>
+    = new EventEmitter();
 
 
   constructor() { }
