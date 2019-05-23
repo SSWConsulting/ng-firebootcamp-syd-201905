@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Company } from '../company';
 import { CompanyService } from '../company.service';
-import { takeWhile } from 'rxjs/operators';
+import { takeWhile, tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -18,7 +18,10 @@ export class CompanyListComponent implements OnInit {
     ) {}
 
   ngOnInit() {
-    this.companies$ = this.companyService.getCompanies();
+    this.companies$ = this.companyService.getCompanies()
+    .pipe(
+      tap(c => console.log('we have some companies', c))
+    );
   }
 
 
