@@ -18,11 +18,23 @@ export class CompanyListComponent implements OnInit {
     ) {}
 
   ngOnInit() {
+    this.loadCompanies();
+  }
+
+  // this function loads companies
+  // this comment was useless because the name was great :)
+  loadCompanies(){
     this.companies$ = this.companyService.getCompanies()
     .pipe(
       tap(c => console.log('we have some companies', c))
     );
   }
+
+  deleteCompany(company: Company) {
+    this.companyService.deleteCompany(company.id)
+    .subscribe(company => this.loadCompanies());
+  }
+
 
 
 }

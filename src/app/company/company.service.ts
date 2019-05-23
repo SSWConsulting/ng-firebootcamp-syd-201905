@@ -23,6 +23,11 @@ export class CompanyService {
     );
   }
 
+  deleteCompany(id: number): Observable<Company> {
+    return this.httpClient.delete<Company>(`${this.API_BASE}/company/${id}`);
+    // TODO: implement Error Handler (after the break)
+  }
+
   errorHandler(error: Error): Observable<Company[]> {
     console.error('SOMETHING BAD HAPPENED', error);
     return new Observable<Company[]>();
