@@ -19,18 +19,21 @@ export class CompanyService {
   getCompanies(): Observable<Company[]> {
     return this.httpClient.get<Company[]>(`${this.API_BASE}/company`)
     .pipe(
-      catchError(this.errorHandler)
+      catchError(error => this.errorHandler<Company[]>(error))
     );
   }
 
   deleteCompany(id: number): Observable<Company> {
-    return this.httpClient.delete<Company>(`${this.API_BASE}/company/${id}`);
-    // TODO: implement Error Handler (after the break)
+    return this.httpClient.delete<Company>(`${this.API_BASE}/company/${id}`)
+    .pipe(
+      catchError(error => this.errorHandler<Company>(error))
+    );
   }
 
-  errorHandler(error: Error): Observable<Company[]> {
+  errorHandler<T>(error: Error): Observable<T> {
     console.error('SOMETHING BAD HAPPENED', error);
-    return new Observable<Company[]>();
+    return new Observable<T>();
   }
+
 
 }
