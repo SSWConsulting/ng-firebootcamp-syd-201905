@@ -38,6 +38,22 @@ export class CompanyService {
     );
   }
 
+  getCompany(companyId: number): Observable<Company> {
+    return this.httpClient.get<Company>(`${this.API_BASE}/company/${companyId}`)
+    .pipe(
+      catchError(error => this.errorHandler<Company>(error))
+    );
+  }
+
+  updateCompany(company: Company): Observable<Company> {
+    return this.httpClient.put<Company>(`${this.API_BASE}/company/${company.id}`,
+    company,
+    { headers: new HttpHeaders().set('content-type', 'application/json') })
+    .pipe(
+      catchError(error => this.errorHandler<Company>(error))
+    );
+  }
+
   errorHandler<T>(error: Error): Observable<T> {
     console.error('SOMETHING BAD HAPPENED', error);
     return new Observable<T>();
