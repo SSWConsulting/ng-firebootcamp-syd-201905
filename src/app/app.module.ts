@@ -28,7 +28,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     HttpClientModule,
     StoreModule.forRoot({ companies: companyReducer }),
     StoreDevtoolsModule.instrument({
-      maxAge: 100 //  Retains last 25 states
+      maxAge: 100 //  Retains last 100 states
     }),
     NgbModule.forRoot()
   ],
