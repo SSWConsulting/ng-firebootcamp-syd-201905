@@ -60,7 +60,7 @@ export class CompanyService {
     { headers: new HttpHeaders().set('content-type', 'application/json') })
     .pipe(
       catchError(error => this.errorHandler<Company>(error)),
-      delay(1000)
+      // delay(1000)
     )
     .subscribe( c => this.loadCompanies() );
   }
