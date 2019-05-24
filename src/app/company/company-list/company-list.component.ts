@@ -23,7 +23,7 @@ export class CompanyListComponent implements OnInit {
 
   // this function loads companies
   // this comment was useless because the name was great :)
-  loadCompanies(){
+  loadCompanies() {
     this.companies$ = this.companyService.getCompanies()
     .pipe(
       tap(c => console.log('we have some companies', c))
@@ -31,8 +31,7 @@ export class CompanyListComponent implements OnInit {
   }
 
   deleteCompany(company: Company) {
-    this.companyService.deleteCompany(company.id)
-    .subscribe(company => this.loadCompanies());
+    this.companyService.deleteCompany(company.id);
   }
 
 
