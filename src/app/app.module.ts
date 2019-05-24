@@ -9,6 +9,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
 import { CompanyTableComponent } from './company/company-table/company-table.component';
 import { CompanyEditComponent } from './company/company-edit/company-edit.component';
+import { StoreModule } from '@ngrx/store';
+import { companyReducer } from './state/company/company.reducer';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 @NgModule({
   declarations: [
@@ -23,6 +26,10 @@ import { CompanyEditComponent } from './company/company-edit/company-edit.compon
     ReactiveFormsModule,
     AppRoutingModule,
     HttpClientModule,
+    StoreModule.forRoot({ companies: companyReducer }),
+    StoreDevtoolsModule.instrument({
+      maxAge: 100 //  Retains last 25 states
+    }),
     NgbModule.forRoot()
   ],
   providers: [],

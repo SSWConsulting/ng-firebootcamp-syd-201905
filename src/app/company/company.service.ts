@@ -3,6 +3,9 @@ import { Company } from './company';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { catchError, retry, delay } from 'rxjs/operators';
+import { Store } from '@ngrx/store';
+import { AppState } from '../state/AppState';
+import * as companyActions from '../state/company/company.actions';
 
 @Injectable({
   providedIn: 'root'
@@ -10,24 +13,23 @@ import { catchError, retry, delay } from 'rxjs/operators';
 export class CompanyService {
 
   constructor(
-    private httpClient: HttpClient
+    private httpClient: HttpClient,
+    private store: Store<AppState>
   ) {
     this.loadCompanies();
    }
 
   API_BASE = 'http://firebootcamp-crm-api.azurewebsites.net/api';
 
-  companies$: BehaviorSubject<Company[]> = new BehaviorSubject<Company[]>([]);
-
   loadCompanies() {
     this.httpClient.get<Company[]>(`${this.API_BASE}/company`)
     .pipe(
       catchError(error => this.errorHandler<Company[]>(error))
-    ).subscribe(companies => this.companies$.next(companies));
+    ).subscribe(companies => this.store.dispatch(new companyActions.LoadCompaniesSuccess(companies)));
   }
 
   getCompanies(): Observable<Company[]> {
-    return this.companies$;
+    return this.store.select(s => s.companies);
   }
 
   deleteCompany(id: number) {
